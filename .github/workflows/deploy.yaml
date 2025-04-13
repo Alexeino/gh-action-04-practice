@@ -1,0 +1,31 @@
+name: Lint, Test & Deploy
+on: push
+jobs:
+  unittest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v3
+      - name: Install Node 18
+        uses:  actions/setup-node@v3
+      - name: Install Deps
+        run: npm ci
+      - name: Lint Check
+        run: npm run lint
+      - name: Run Tests
+        run: npm test
+  
+  deploy:
+    needs: unittest
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the code
+        uses: actions/checkout@v3
+      - name: Install Node 18
+        uses: actions/setup-node@v3
+      - name: Install Deps
+        run: npm ci
+      - name: Build Project
+        run: npm run build
+      - name: Deploy the Project
+        run: echo "Deploying ..."
