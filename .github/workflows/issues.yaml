@@ -8,3 +8,16 @@ jobs:
         env:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
+      - name: Print Issue Details
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          ISSUE_STATUS: ${{ github.event.issue.state}}
+        run: |
+          echo "$ISSUE_TITLE"
+          echo "$ISSUE_BODY"
+          echo "$ISSUE_AUTHOR"
+          echo "Recent Status $ISSUE_STATUS"
+      - name: Opening a ServiceNow Ticket
+        run: echo "CI Ticket opened and informed the PO"
